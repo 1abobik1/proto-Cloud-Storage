@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package fileuploader;
+
+option go_package = ".";
+
+service FileUploader {
+  // Метод для загрузки файла
+  rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
+
+  // Метод для получения информации о загруженном файле
+  rpc GetFileInfo(GetFileInfoRequest) returns (GetFileInfoResponse);
+
+  // Метод для скачивания файла
+  rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
+}
+
+// Поддерживаемые типы файлов
+enum FileType {
+  UNKNOWN = 0;
+  PHOTO = 1;
+  VIDEO = 2;
+  TEXT = 3;
+}
+
+// Запрос для загрузки файла
+message UploadFileRequest {
+  string file_name = 1; // Имя файла
+  FileType file_type = 2; // Тип файла
+  bytes file_content = 3; // Контент файла
+}
+
+// Ответ после успешной загрузки
+message UploadFileResponse {
+  string file_id = 1; // Уникальный идентификатор файла
+  string message = 2; // Сообщение о статусе
+}
+
+// Запрос для получения информации о файле
+message GetFileInfoRequest {
+  string file_id = 1; // Уникальный идентификатор файла
+}
+
+// Ответ с информацией о файле
+message GetFileInfoResponse {
+  string file_name = 1;
+  FileType file_type = 2;
+  int64 file_size = 3; // Размер файла в байтах
+  string upload_time = 4; // Время загрузки
+}
+
+// Запрос для скачивания файла
+message DownloadFileRequest {
+  string file_id = 1; // Уникальный идентификатор файла
+}
+
+// Ответ для скачивания файла
+message DownloadFileResponse {
+  bytes file_chunk = 1; // Часть файла (для поддержки потоковой передачи)
+}
