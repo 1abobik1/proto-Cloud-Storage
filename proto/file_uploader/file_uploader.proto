@@ -32,13 +32,13 @@ message UploadFileRequest {
 
 // Ответ после успешной загрузки
 message UploadFileResponse {
-  string file_id = 1; // Уникальный идентификатор файла
+  int64 file_id = 1; // Уникальный идентификатор файла
   string message = 2; // Сообщение о статусе
 }
 
 // Запрос для получения информации о файле
 message GetFileInfoRequest {
-  string file_id = 1; // Уникальный идентификатор файла
+  int64 file_id = 1; // Уникальный идентификатор файла
 }
 
 // Ответ с информацией о файле
@@ -51,7 +51,7 @@ message GetFileInfoResponse {
 
 // Запрос для скачивания файла
 message DownloadFileRequest {
-  string file_id = 1; // Уникальный идентификатор файла
+  int64 file_id = 1; // Уникальный идентификатор файла
 }
 
 // Ответ для скачивания файла
