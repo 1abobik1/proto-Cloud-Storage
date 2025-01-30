@@ -6,7 +6,7 @@ option go_package = ".";
 
 service FileUploader {
   // Метод для загрузки файла
-  rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
+  rpc UploadFile(stream UploadFileRequest) returns (UploadFileResponse);
 
   // Метод для получения информации о загруженном файле
   rpc GetFileInfo(GetFileInfoRequest) returns (GetFileInfoResponse);
